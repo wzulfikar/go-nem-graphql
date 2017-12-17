@@ -15,12 +15,12 @@ type helloResolver struct {
 	h *hello
 }
 
-func (r *helloResolver) Name() *string {
-	return &r.h.Name
-}
-
 func (r *helloResolver) ID() *string {
 	return &r.h.ID
+}
+
+func (r *helloResolver) Name() *string {
+	return &r.h.Name
 }
 
 func (r *helloResolver) Hash() *hashResolver {

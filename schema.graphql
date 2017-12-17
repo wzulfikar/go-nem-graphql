@@ -6,7 +6,7 @@ schema {
 # The query type, represents all of the entry points into our object graph
 type Query {
 	Hello(name: String = "world!"): Hello!
-	# AllTransactions(address: String = "", hash: String = "", id: String = ""): [TestData!]
+	AllTransactions(address: String = "", hash: String = "", id: String = ""): [TransactionData]!
 }
 
 type Hash {
@@ -17,4 +17,27 @@ type Hello {
 	id: String
 	name: String
 	hash: Hash
+}
+
+type TransactionMetaData {
+	hash:  Hash
+	height: String
+	id:     String
+}
+
+type Transaction {
+	deadline:      Int
+	fee:           Int  
+	mode:          Int  
+	remoteAccount: String
+	signature:     String
+	signer:        String
+	timeStamp:     Int
+	type:          Int  
+	version:       Int  
+}
+
+type TransactionData {
+	meta: TransactionMetaData
+	transaction: Transaction
 }
