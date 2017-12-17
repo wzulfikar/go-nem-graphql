@@ -5,5 +5,16 @@ schema {
 
 # The query type, represents all of the entry points into our object graph
 type Query {
-	AllTransactions(address: String = "", hash: String = "", id: String = ""): String
+	Hello(name: String = "world!"): Hello!
+	# AllTransactions(address: String = "", hash: String = "", id: String = ""): [TestData!]
+}
+
+type Hash {
+	data: String
+}
+
+type Hello {
+	id: String
+	name: String
+	hash: Hash
 }
