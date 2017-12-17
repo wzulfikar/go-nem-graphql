@@ -25,7 +25,7 @@ func (r *Resolver) AllTransactions(args nemparams.AllTransactions) *transactions
 
 	var l []*transactionDataResolver
 	for _, t := range tx.Data {
-		l = append(l, &transactionDataResolver{&t})
+		l = append(l, &transactionDataResolver{t})
 	}
 
 	fmt.Println(len(tx.Data), "tx found")

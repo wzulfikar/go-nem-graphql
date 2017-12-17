@@ -5,7 +5,7 @@ import (
 )
 
 type transactionDataResolver struct {
-	t *nemtypings.TransactionData
+	t nemtypings.TransactionData
 }
 
 func (r *transactionDataResolver) Meta() *transactionMetaDataResolver {
