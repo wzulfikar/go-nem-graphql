@@ -50,6 +50,7 @@ func main() {
 	}))
 	http.Handle("/query", &relay.Handler{Schema: schema})
 
+	log.Println("NEM GraphQL started")
 	log.Fatal(http.ListenAndServe(":"+port, nil))
 }
 
