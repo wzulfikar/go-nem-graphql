@@ -7,18 +7,15 @@ import (
 	"strings"
 
 	nemparams "github.com/wzulfikar/go-nem-client/params"
-	nemrequests "github.com/wzulfikar/go-nem-client/requests"
 )
-
-type Resolver struct {
-	Client *nemrequests.Client
-}
 
 func (r *Resolver) Hello(args struct{ Name string }) *helloResolver {
 	return &helloResolver{&hello{"hello", args.Name, "hash"}}
 }
 
 func (r *Resolver) AllTransactions(args nemparams.AllTransactions) (*transactionsTypeResolver, error) {
+	defer Logger("Query AllTransactions")()
+
 	tx, err := r.Client.GetAllTransactions(args.Address, args.Hash, args.Id)
 	if err != nil {
 		log.Println("error", err)
