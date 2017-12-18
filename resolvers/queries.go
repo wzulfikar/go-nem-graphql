@@ -11,7 +11,7 @@ func (r *Resolver) Hello(args struct{ Name string }) *helloResolver {
 }
 
 func (r *Resolver) AllTransactions(args nemparams.AllTransactions) (*transactionsTypeResolver, error) {
-	defer Logger("Query AllTransactions")()
+	defer Logger("Query allTransactions")()
 
 	tx, err := r.Client.GetAllTransactions(args.Address, args.Hash, args.Id)
 	if err != nil {
