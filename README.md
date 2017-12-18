@@ -6,7 +6,7 @@ GraphQL for NEM network with GraphiQL page included.
 
 ### Installation
 
-`go get -u github.com/wzulfikar/go-nem-graphql/cmd/nemgraphql`
+`go get -u github.com/wzulfikar/go-nem-graphql/nemgraphql`
 
 > You need to install Go to have `go` command. See: https://golang.org/doc/install#install
 
