@@ -20,7 +20,7 @@ func (r *Resolver) AllTransactions(args nemparams.AllTransactions) (*transaction
 	if err != nil {
 		log.Println("error", err)
 		if strings.Contains(err.Error(), "connection refused") {
-			return nil, errors.New("NEM server error: connection refused")
+			return nil, errors.New("NEM server error: can't connect to " + r.Client.Endpoint)
 		}
 		return nil, errors.New("Something went wrong :(")
 	}

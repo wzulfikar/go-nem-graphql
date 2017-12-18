@@ -4,6 +4,7 @@ var GraphiQLPage = `
 <!DOCTYPE html>
 <html>
 	<head>
+		<title>Go NEM GraphQL</title>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/graphiql/0.10.2/graphiql.css" />
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/1.1.0/fetch.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.5.4/react.min.js"></script>
