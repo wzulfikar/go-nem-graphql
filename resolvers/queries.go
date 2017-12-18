@@ -1,10 +1,7 @@
 package nemgraphql
 
 import (
-	"errors"
 	"fmt"
-	"log"
-	"strings"
 
 	nemparams "github.com/wzulfikar/go-nem-client/params"
 )
@@ -18,11 +15,7 @@ func (r *Resolver) AllTransactions(args nemparams.AllTransactions) (*transaction
 
 	tx, err := r.Client.GetAllTransactions(args.Address, args.Hash, args.Id)
 	if err != nil {
-		log.Println("error", err)
-		if strings.Contains(err.Error(), "connection refused") {
-			return nil, errors.New("NEM server error: can't connect to " + r.Client.Endpoint)
-		}
-		return nil, errors.New("Something went wrong :(")
+		return nil, errorHandler(r.Client, err, "Oops! Something went wrong :(")
 	}
 
 	var l []*transactionDataResolver
