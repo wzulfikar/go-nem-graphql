@@ -1,8 +1,10 @@
 package nemgraphql
 
 import (
+	"errors"
 	"fmt"
 	"log"
+	"strings"
 
 	nemparams "github.com/wzulfikar/go-nem-client/params"
 	nemrequests "github.com/wzulfikar/go-nem-client/requests"
@@ -16,11 +18,14 @@ func (r *Resolver) Hello(args struct{ Name string }) *helloResolver {
 	return &helloResolver{&hello{"hello", args.Name, "hash"}}
 }
 
-func (r *Resolver) AllTransactions(args nemparams.AllTransactions) *transactionsTypeResolver {
+func (r *Resolver) AllTransactions(args nemparams.AllTransactions) (*transactionsTypeResolver, error) {
 	tx, err := r.Client.GetAllTransactions(args.Address, args.Hash, args.Id)
 	if err != nil {
-		log.Println(err)
-		return &transactionsTypeResolver{}
+		log.Println("error", err)
+		if strings.Contains(err.Error(), "connection refused") {
+			return nil, errors.New("NEM server error: connection refused")
+		}
+		return nil, errors.New("Something went wrong :(")
 	}
 
 	var l []*transactionDataResolver
@@ -35,5 +40,5 @@ func (r *Resolver) AllTransactions(args nemparams.AllTransactions) *transactions
 			TotalCount: int32(len(tx.Data)),
 			Data:       l,
 		},
-	}
+	}, nil
 }

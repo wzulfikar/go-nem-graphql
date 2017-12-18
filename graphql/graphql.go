@@ -26,7 +26,7 @@ func init() {
 		schemaFile = "../schema.graphql"
 	}
 	if port == "" {
-		port = "8080"
+		port = "8889"
 	}
 	if nemServer == "" {
 		nemServer = "http://127.0.0.1:7890"

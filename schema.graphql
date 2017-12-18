@@ -5,8 +5,8 @@ schema {
 
 # The query type, represents all of the entry points into our object graph
 type Query {
-	Hello(name: String = "world!"): Hello!
-	AllTransactions(address: String!, hash: String = "", id: String = ""): TransactionsType!
+	hello(name: String = "world!"): Hello!
+	allTransactions(address: String!, hash: String = "", id: String = ""): TransactionsType!
 }
 
 type Hash {
