@@ -1,12 +1,11 @@
 package main
 
 import (
-	"io/ioutil"
 	nemclient "local-dev/go-nem-client"
 	"log"
 	"net/http"
 	"os"
-	"path/filepath"
+	"strings"
 
 	"github.com/neelance/graphql-go"
 	"github.com/neelance/graphql-go/relay"
@@ -17,14 +16,10 @@ import (
 var schema *graphql.Schema
 
 var port = os.Getenv("GRAPHQL_PORT")
-var schemaFile = os.Getenv("GRAPHQL_SCHEMA")
 var nemServer = os.Getenv("NEM_SERVER")
 
 // set default values
 func init() {
-	if schemaFile == "" {
-		schemaFile = "../schema.graphql"
-	}
 	if port == "" {
 		port = "8889"
 	}
@@ -43,22 +38,18 @@ func main() {
 		Client: c,
 	}
 
-	schema = graphql.MustParseSchema(string(file(schemaFile)), resolver)
+	graphqlSchema := strings.Join([]string{
+		nemgraphql.GraphQLSchema,
+		nemgraphql.GraphQLTypes,
+	}, "")
+	schema = graphql.MustParseSchema(graphqlSchema, resolver)
 
 	http.Handle("/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte(nemgraphql.GraphiQLPage))
 	}))
 	http.Handle("/query", &relay.Handler{Schema: schema})
 
-	log.Println("NEM GraphQL started at http://localhost:" + port)
+	log.Println("→ Connecting to NEM server at", nemServer)
+	log.Println("✔ NEM GraphQL started at http://localhost:" + port)
 	log.Fatal(http.ListenAndServe(":"+port, nil))
-}
-
-func file(filename string) []byte {
-	path, _ := filepath.Abs(filename)
-	file, err := ioutil.ReadFile(path)
-	if err != nil {
-		log.Fatal(err)
-	}
-	return file
 }

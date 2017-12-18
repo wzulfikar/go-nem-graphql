@@ -1,14 +1,6 @@
-schema {
-	query: Query
-	# mutation: Mutation
-}
+package nemgraphql
 
-# The query type, represents all of the entry points into our object graph
-type Query {
-	hello(name: String = "world!"): Hello!
-	allTransactions(address: String!, hash: String = "", id: String = ""): TransactionsType!
-}
-
+var GraphQLTypes = `
 type Hash {
 	data: String
 }
@@ -46,3 +38,4 @@ type TransactionsType {
 	totalCount: Int
 	data: [TransactionData]
 }
+`
