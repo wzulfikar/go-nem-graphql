@@ -3,7 +3,7 @@ package nemgraphql
 var GraphQLSchema = `
 schema {
 	query: Query
-	# mutation: Mutation
+	mutation: Mutation
 }
 
 # The query type, represents all of the entry points into our object graph
@@ -13,5 +13,9 @@ type Query {
 
 	# retrieve transactions of given NEM address
 	allTransactions(address: String!, hash: String = "", id: String = ""): TransactionsType!
+}
+
+type Mutation {
+	newHello(name: String = "world!"): Hello!
 }
 `
